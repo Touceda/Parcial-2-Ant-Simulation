@@ -9,7 +9,7 @@ namespace AntSimulation
 {
     class Pheromone : GameObject
     {
-        public static void SpawnOn(World world, PointF pos, double intensity = 100)
+        public static void SpawnOn(World world, PointF pos, double intensity = 100)//La Pheromona que suelta la Hormiga
         {
             if (intensity > 100) { intensity = 100; }
 
@@ -51,7 +51,7 @@ namespace AntSimulation
             set { intensity = value; }
         }
 
-        public override void UpdateOn(World world)
+        public override void UpdateOn(World world)//Se actualiza la Pheromona
         {
             if (intensity <= 1)
             {
@@ -66,7 +66,7 @@ namespace AntSimulation
             }
         }
 
-        private void UpdateColor()
+        private void UpdateColor()//Se actualiza su color
         {
             Color = Color.FromArgb((int)Math.Floor(intensity / 100 * 255), 255, 255, 0);
         }

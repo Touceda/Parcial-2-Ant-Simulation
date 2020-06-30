@@ -4,11 +4,13 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace AntSimulation
 {
     class Ant : GameObject
     {
+        //Hormiga 
         private Nest nest;
         private bool hasFood = false;
 
@@ -44,7 +46,14 @@ namespace AntSimulation
 
         private bool CheckFood(World world)
         {
+            
+
+
+
             IEnumerable<GameObject> food = FindNear<Food>(world, 15);
+
+
+
             if (food.Any())
             {
                 GameObject f = food.Where(each => each.Position.Equals(Position)).FirstOrDefault();

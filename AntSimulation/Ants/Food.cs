@@ -9,7 +9,7 @@ namespace AntSimulation
 {
     class Food : GameObject
     {
-        public static void SpawnOn(World world, PointF center, float amount = 100)
+        public static void SpawnOn(World world, PointF center, float amount = 100)//Se crea la comida
         {
             float radius = (float)Math.Round(Math.Sqrt(amount) / 2);
             for (float x = center.X - radius; x <= center.X + radius; x++)

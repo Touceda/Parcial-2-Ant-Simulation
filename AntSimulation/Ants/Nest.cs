@@ -9,7 +9,7 @@ namespace AntSimulation
 {
     class Nest : GameObject
     {
-        public Nest()
+        public Nest()//Crea un punto rojo en el 0,0 Que actua como Hormiguero
         {
             Color = Color.Red;
         }

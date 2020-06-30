@@ -9,19 +9,19 @@ namespace AntSimulation
 {
     class World
     {
-        private Random rnd = new Random();
+        private Random rnd = new Random();//Simple random
+        private const int width = 125;//Tamaño del mundo
+        private const int height = 125;//Tamañp del mundo
+        private Size size = new Size(width, height);//Tamaño del mundo
 
-        private const int width = 125;
-        private const int height = 125;
-        private Size size = new Size(width, height);
-        private List<GameObject> objects = new List<GameObject>();
+        private List<GameObject> objects = new List<GameObject>();//La lista que contiene todos los objetos del mudno
 
         public IEnumerable<GameObject> GameObjects { get { return objects.ToArray(); } }
 
-        public int Width { get { return width; } }
+        public int Width { get { return width; } }//Propiedades que devuelven alto y ancho
         public int Height { get { return height; } }
 
-        public PointF Center { get { return new PointF(width / 2, height / 2); } }
+        public PointF Center { get { return new PointF(width / 2, height / 2); } }//El centro de mi mundo
 
         public bool IsInside(PointF p)
         {
@@ -29,32 +29,32 @@ namespace AntSimulation
                 && p.Y >= 0 && p.Y < height;
         }
         
-        public PointF RandomPoint()
+        public PointF RandomPoint()//Genera y devuelve un PointF Random
         {
             return new PointF(rnd.Next(width), rnd.Next(height));
         }
 
-        public float Random()
+        public float Random()//Devuelve un Float Random
         {
             return (float)rnd.NextDouble();
         }
 
-        public float Random(float min, float max)
+        public float Random(float min, float max) //Devuelve un float Random con un minimo y un maximo posible
         {
             return (float)rnd.NextDouble() * (max - min) + min;
         }
 
-        public void Add(GameObject obj)
+        public void Add(GameObject obj)//Añada un objeto al mundo
         {
             objects.Add(obj);
         }
 
-        public void Remove(GameObject obj)
+        public void Remove(GameObject obj)//Elimino un objeto del mundo
         {
             objects.Remove(obj);
         }
 
-        public void Update()
+        public void Update()//Actualizo todos los objetos del mundo
         {
             foreach (GameObject obj in GameObjects)
             {
@@ -63,12 +63,12 @@ namespace AntSimulation
             }
         }
 
-        public void DrawOn(Graphics graphics)
+        public void DrawOn(Graphics graphics) //Dibuja el mundo
         {
             graphics.FillRectangle(Brushes.White, 0, 0, width, height);
             foreach (GameObject obj in GameObjects)
             {
-                graphics.FillRectangle(new Pen(obj.Color).Brush, obj.Bounds);
+                graphics.FillRectangle(new Pen(obj.Color).Brush, obj.Bounds);//(Puedo guardar los pens en un array, posible optimizacion futura)
             }
         }
 
