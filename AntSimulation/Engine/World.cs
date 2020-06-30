@@ -15,8 +15,25 @@ namespace AntSimulation
         private Size size = new Size(width, height);//Tamaño del mundo
 
         private List<GameObject> objects = new List<GameObject>();//La lista que contiene todos los objetos del mudno
+        private List<Ant> Hormigas = new List<Ant>();
+        private List<Food> Comida = new List<Food>();
 
-        public IEnumerable<GameObject> GameObjects { get { return objects.ToArray(); } }
+        public IEnumerable<GameObject> GameObjects
+        { get {
+                List<GameObject> AllObject = new List<GameObject>();
+                foreach (var obj in objects)
+                {
+                    AllObject.Add(obj);
+                }
+                foreach (var obj in Hormigas)
+                {
+                    AllObject.Add(obj);
+                }
+                foreach (var obj in Comida)
+                {
+                    AllObject.Add(obj);
+                }
+                return AllObject.ToArray(); } }
 
         public int Width { get { return width; } }//Propiedades que devuelven alto y ancho
         public int Height { get { return height; } }
@@ -44,10 +61,21 @@ namespace AntSimulation
             return (float)rnd.NextDouble() * (max - min) + min;
         }
 
+        public void Add(Ant obj)//Añada un objeto al mundo
+        {
+            Hormigas.Add(obj);
+        }
+
+        public void Add(Food obj)//Añada un objeto al mundo
+        {
+            Comida.Add(obj);
+        }
+
         public void Add(GameObject obj)//Añada un objeto al mundo
         {
             objects.Add(obj);
         }
+
 
         public void Remove(GameObject obj)//Elimino un objeto del mundo
         {

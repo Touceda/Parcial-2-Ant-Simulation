@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.IO;
 
 namespace AntSimulation
 {
@@ -42,16 +43,14 @@ namespace AntSimulation
         {
             Forward(world.Random(1, 5));
             Turn(world.Random(-25, 25));
+
         }
+
 
         private bool CheckFood(World world)
         {
-            
 
-
-
-            IEnumerable<GameObject> food = FindNear<Food>(world, 15);
-
+            IEnumerable<GameObject> food = FindNear<Food>(world, 15);//Devuelve la comida que esta cerca //15 es el radio de busqueda
 
 
             if (food.Any())
@@ -108,16 +107,16 @@ namespace AntSimulation
             }
         }
 
-        private IEnumerable<T> FindNear<T>(World world, float radius) where T : GameObject
+        private IEnumerable<Food> FindNear<Food>(World world, float radius) where Food : GameObject
         {
-            List<T> result = new List<T>();
+            List<Food> result = new List<Food>();
             for (float x = Position.X - radius; x <= Position.X + radius; x++)
             {
                 for (float y = Position.Y - radius; y <= Position.Y + radius; y++)
                 {
                     result.AddRange(world
                         .GameObjectsNear(new PointF(x, y))
-                        .Select(t => t as T)
+                        .Select(t => t as Food)
                         .Where(t => t != null));
                 }
             }

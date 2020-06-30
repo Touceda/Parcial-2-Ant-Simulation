@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,7 +14,7 @@ namespace AntSimulation
         private double rotation = 0;//Rotacion
         private Color color = Color.Black;//Color
         private long lastUpdate = 0;//Intervalo de Update = 10
-
+        public string TipoDeObjeto;
         //Propiedades
         public virtual long UpdateInterval { get { return 10; } }
 
