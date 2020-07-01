@@ -50,7 +50,7 @@ namespace AntSimulation
         private bool CheckFood(World world)
         {
 
-            IEnumerable<GameObject> food = FindNear<Food>(world, 15);//Devuelve la comida que esta cerca //15 es el radio de busqueda
+            IEnumerable<GameObject> food = FindNear(world, 15);//Devuelve la comida que esta cerca //15 es el radio de busqueda
 
 
             if (food.Any())
@@ -73,23 +73,23 @@ namespace AntSimulation
 
         private void CheckPheromone(World world)
         {
-            PointF? strongestPoint = null;
-            double strongestIntensity = 0;
-            IEnumerable<Pheromone> nearPheromones = FindNear<Pheromone>(world, 10);
-            foreach (Pheromone p in nearPheromones.Where(p => p.Intensity > 5))
-            {
-                if (p.Intensity > strongestIntensity)
-                {
-                    strongestIntensity = p.Intensity;
-                    strongestPoint = p.Position;
-                }
-            }
+            //PointF? strongestPoint = null;
+            //double strongestIntensity = 0;
+            //IEnumerable<Pheromone> nearPheromones = FindNear<Pheromone>(world, 10);
+            //foreach (Pheromone p in nearPheromones.Where(p => p.Intensity > 5))
+            //{
+            //    if (p.Intensity > strongestIntensity)
+            //    {
+            //        strongestIntensity = p.Intensity;
+            //        strongestPoint = p.Position;
+            //    }
+            //}
 
-            if (strongestPoint.HasValue)
-            {
-                LookTo(strongestPoint.Value);
-                Wander(world);
-            }
+            //if (strongestPoint.HasValue)
+            //{
+            //    LookTo(strongestPoint.Value);
+            //    Wander(world);
+            //}
         }
 
         private void ReleasePheromone(World world)
@@ -107,19 +107,31 @@ namespace AntSimulation
             }
         }
 
-        private IEnumerable<Food> FindNear<Food>(World world, float radius) where Food : GameObject
+        private IEnumerable<Food> FindNear(World world, float radius) //Este metodo encuentra la comida que esta cerca
         {
-            List<Food> result = new List<Food>();
+            IEnumerable<Food> result;
+            List<Point> RangoDeHormiga = new List<Point>();
             for (float x = Position.X - radius; x <= Position.X + radius; x++)
             {
                 for (float y = Position.Y - radius; y <= Position.Y + radius; y++)
                 {
-                    result.AddRange(world
-                        .GameObjectsNear(new PointF(x, y))
-                        .Select(t => t as Food)
-                        .Where(t => t != null));
+                    int pointX = (int)Math.Round(x);//redondeo
+                    int pointY = (int)Math.Round(y);
+                    RangoDeHormiga.Add(new Point(pointX, pointY));
+                    //result.AddRange(world
+                    //    .GameObjectsNear(new PointF(x, y))
+                    //    .Select(t => t as Food)
+                    //    .Where(t => t != null));
                 }
             }
+
+            result = world.GameObjectsNear(RangoDeHormiga);
+
+            //pudeo pasar un array de pointF con todos los puntos o el rango de mi hormiga, y a partir de ahi que me devuelva una lista con toda la comida posible que toque
+            //La comida la puedo almacenar en un array segun su pos x e y, de esta manera puedo eliminar dist que causa el problema
+            //Luego tendria que suplicar el metodo pero para las pheromonas y activarlas
+
+
             return result;
         }
     }
