@@ -16,6 +16,17 @@ namespace AntSimulation
             {
                 for (float y = center.Y - radius; y <= center.Y + radius; y++)
                 {
+                    //si el x o y es negativo me tira un error, esto es para evitarlo
+                    if (x < 0) 
+                    {
+                        x = 0;
+                    }
+
+                    if (y < 0)
+                    {
+                        y = 0;
+                    }
+
                     Food f = new Food();
                     int pointX = (int)Math.Round(x);//redondeo
                     int pointY = (int)Math.Round(y);

@@ -72,23 +72,6 @@ namespace AntSimulation
                 return true;
             }
             return false;
-            //IEnumerable<GameObject> food = FindNear<Food>(world, 15);
-            //if (food.Any())
-            //{
-            //    GameObject f = food.Where(each => each.Position.Equals(Position)).FirstOrDefault();
-            //    if (f != null)
-            //    {
-            //        hasFood = true;
-            //        world.Remove(f);
-            //    }
-            //    else
-            //    {
-            //        LookTo(food.First().Position);
-            //        Wander(world);
-            //    }
-            //    return true;
-            //}
-            //return false;
         }
 
         private void CheckPheromone(World world)
@@ -131,7 +114,6 @@ namespace AntSimulation
         private IEnumerable<T> FindNear<T>(World world, float radius) where T : GameObject
         {
             List<T> result = new List<T>();
-            //List<Point> RangoDeHormiga = new List<Point>();
             for (float x = Position.X - radius; x <= Position.X + radius; x++)
             {
                 for (float y = Position.Y - radius; y <= Position.Y + radius; y++)
@@ -149,25 +131,4 @@ namespace AntSimulation
     }
 }
 
-        //    private IEnumerable<Food> FindNear(World world, float radius) //Este metodo encuentra la comida que esta cerca
-        //    {
-        //        IEnumerable<Food> result;
-        //        List<Point> RangoDeHormiga = new List<Point>();
-        //        for (float x = Position.X - radius; x <= Position.X + radius; x++)
-        //        {
-        //            for (float y = Position.Y - radius; y <= Position.Y + radius; y++)
-        //            {
-        //                int pointX = (int)Math.Round(x);//redondeo
-        //                int pointY = (int)Math.Round(y);
-        //                RangoDeHormiga.Add(new Point(pointX, pointY));
-        //            }
-        //        }
-
-        //        result = world.GameObjectsNear(RangoDeHormiga);
-        //        //pudeo pasar un array de pointF con todos los puntos o el rango de mi hormiga, y a partir de ahi que me devuelva una lista con toda la comida posible que toque
-        //        //La comida la puedo almacenar en un array segun su pos x e y, de esta manera puedo eliminar dist que causa el problema
-        //        //Luego tendria que suplicar el metodo pero para las pheromonas y activarlas
-        //        return result;
-        //    }
-        //}
     

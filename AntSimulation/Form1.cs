@@ -72,6 +72,7 @@ namespace AntSimulation
 
         private void updateTimer_Tick(object sender, EventArgs e)//Se actualiza el Jugeo cada 1 mls y manda a refrescar
         {
+
             Text = world.GameObjects.Count().ToString();
             ClientSize = new Size(world.Width * scale, world.Height * scale);
             world.Update();

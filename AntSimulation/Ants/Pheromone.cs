@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -13,10 +14,12 @@ namespace AntSimulation
         {
             if (intensity > 100) { intensity = 100; }
 
+
             Pheromone[] neighbours = world.GameObjectsNear(pos)
                 .Select(each => each as Pheromone)
                 .Where(p => p != null)
                 .ToArray();
+
 
             if (neighbours.Length == 0)
             {

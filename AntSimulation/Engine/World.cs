@@ -78,7 +78,7 @@ namespace AntSimulation
             Comida[x, y] = obj;
         }
 
-        public void Add(GameObject obj)//Añada un objeto al mundo
+        public void Add(GameObject obj)//Añado el resto de objetos
         {
             objects.Add(obj);
         }
@@ -143,6 +143,7 @@ namespace AntSimulation
             int pointx = xpos;
             int pointy = ypos;
 
+            //esto es por un error, "para no mirar el otro lado de la pared"
             if (xpos < 0)
             {
                 pointx = 0;
@@ -165,27 +166,12 @@ namespace AntSimulation
 
         public IEnumerable<GameObject> GameObjectsNear(PointF pos, float dist = 1)
         {
-            return  GameObjects.Where(t => Dist(t.Position, pos) < dist);
+            var Pheromonas = objects.Where(t => t is Pheromone);
+            return Pheromonas.Where(t => Dist(t.Position, pos) < dist);
+
+            //return objects.Where(t => Dist(t.Position, pos) < dist);
         }
 
-        ////List<Food> ComidaARango = new List<Food>();
-        //foreach (var rango in RangoHormiga)
-        //{
-        //    if (rango.X < 0 || rango.Y < 0)
-        //    {
-
-        //    }
-        //    else
-        //    {
-        //        if (Comida[rango.X, rango.Y] != null)
-        //        {
-        //            ComidaARango.Add(Comida[rango.X, rango.Y]);
-        //        }
-        //    }
-
-        //}
-        //var x = ComidaARango.Where(t => true);
-        //return x;
     }
 
  
