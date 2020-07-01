@@ -14,7 +14,6 @@ namespace AntSimulation
         private double rotation = 0;//Rotacion
         private Color color = Color.Black;//Color
         private long lastUpdate = 0;//Intervalo de Update = 10
-        public string TipoDeObjeto;
         //Propiedades
         public virtual long UpdateInterval { get { return 10; } }
 

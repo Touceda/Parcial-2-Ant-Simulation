@@ -17,8 +17,10 @@ namespace AntSimulation
                 for (float y = center.Y - radius; y <= center.Y + radius; y++)
                 {
                     Food f = new Food();
-                    f.Position = new PointF(x, y);
-                    world.Add(f);
+                    int pointX = (int)Math.Round(x);//redondeo
+                    int pointY = (int)Math.Round(y);
+                    f.Position = new PointF(pointX, pointY);
+                    world.AddFood(f,pointX,pointY);
                 }
             }
         }
