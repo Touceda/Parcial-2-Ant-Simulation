@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,8 +16,7 @@ namespace AntSimulation
 
         private List<GameObject> objects = new List<GameObject>();//La lista que contiene todos los objetos del mudno
         private List<Ant> Hormigas = new List<Ant>();
-        //private List<Food> Comida = new List<Food>();
-        private Food[,] Comida = new Food[360, 360];
+        private List<Food> Comida = new List<Food>();
 
         public IEnumerable<GameObject> GameObjects
         { get {
@@ -36,7 +33,8 @@ namespace AntSimulation
                 {
                     AllObject.Add(obj);
                 }
-                return AllObject.ToArray(); } }
+                return AllObject.ToArray(); } 
+        }
 
         public int Width { get { return width; } }//Propiedades que devuelven alto y ancho
         public int Height { get { return height; } }
@@ -69,9 +67,9 @@ namespace AntSimulation
             Hormigas.Add(obj);
         }
 
-        public void Add(Food obj,int x, int y)//Añada un objeto al mundo
+        public void Add(Food obj)//Añada un objeto al mundo
         {
-            Comida[x, y] = obj;
+            Comida.Add(obj);
         }
 
         public void Add(GameObject obj)//Añada un objeto al mundo
@@ -87,8 +85,7 @@ namespace AntSimulation
 
         public void Update()//Actualizo todos los objetos del mundo
         {
-            var all = GameObjects.Where(t => t != null);
-            foreach (GameObject obj in all)
+            foreach (GameObject obj in GameObjects)
             {
                 obj.InternalUpdateOn(this);
                 obj.Position = Mod(obj.Position, size);
@@ -98,19 +95,18 @@ namespace AntSimulation
         public void DrawOn(Graphics graphics) //Dibuja el mundo
         {
             graphics.FillRectangle(Brushes.White, 0, 0, width, height);
-            var all = GameObjects.Where(t => t != null);
-            foreach (GameObject obj in all)
+            foreach (GameObject obj in GameObjects)
             {
                 graphics.FillRectangle(new Pen(obj.Color).Brush, obj.Bounds);//(Puedo guardar los pens en un array, posible optimizacion futura)
             }
         }
 
-        public double Dist(PointF a, PointF b)//me busca el punto del objeto
+        public double Dist(PointF a, PointF b)
         {
             return Math.Sqrt(Math.Pow(a.X - b.X, 2) + Math.Pow(a.Y - b.Y, 2));
         }
 
-        public double Dist(float x1, float y1, float x2, float y2)//me pusca el punto del objeto
+        public double Dist(float x1, float y1, float x2, float y2)
         {
             return Math.Sqrt(Math.Pow(x1 - x2, 2) + Math.Pow(y1 - y2, 2));
         }
@@ -128,20 +124,10 @@ namespace AntSimulation
             return new PointF(Mod(p.X, s.Width), Mod(p.Y, s.Height));
         }
         
-        public IEnumerable<Food> GameObjectsNear(List<Point> RangoHormiga)
+        public IEnumerable<GameObject> GameObjectsNear(PointF pos, float dist = 1)
         {
-            List<Food> ComidaARango = new List<Food>();
-            foreach (var rango in RangoHormiga)
-            {
-                if (Comida[rango.X,rango.Y]!=null)
-                {
-                    ComidaARango.Add(Comida[rango.X, rango.Y]);
-                }
-            }
-            return ComidaARango;
+            return GameObjects.Where(t => Dist(t.Position, pos) < dist);
         }
+
     }
 }
-
-
-
